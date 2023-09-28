@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexgram</title>
     <style>
-        body {text-align: center; background-color: rgb(136, 91, 7); color: black;}
+        body {text-align: center; background-color: rgb(240,158,5); color: black;}
 
     </style>
 </head>
@@ -14,7 +14,7 @@
     <header>
         <img src="Alexgram_Banner.png" alt="banner">
     </header>
-    <iframe src="https://x.thunkable.com/projectPage/6509ce53a0b8d4619e46e2aa"></iframe>
+    <iframe src="https://thunkable.site/w/eOvmiaPkEaYwbZ8vuJVv-" title="Sign In App" height = 750 width = 500></iframe>
 	<script type="module">
   		// Import the functions you need from the SDKs you need
   		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
@@ -46,6 +46,68 @@
   		const app = initializeApp(firebaseConfig);
   		const analytics = getAnalytics(app);
         const auth = getAuth(app);
+
+		const userEmail = document.querySelector("#userEmail");
+        const userPassword = document.querySelector("#userPassword");
+        const authForm = document.querySelector("#authForm");
+        const signUpButton = document.querySelector("#signUpButton");
+        const signInButton = document.querySelector("#signInButton");
+        const signOutButton = document.querySelector("#signOutButton");
+
+		const userSignUp = async() => {
+            const signUpEmail = userEmail.value;
+            const signUpPassword = userPassword.value;
+            createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                alert("Your account has been created!");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode + errorMessage)
+            })
+        }
+
+        const userSignIn = async() => {
+            const signInEmail = userEmail.value;
+            const signInPassword = userPassword.value;
+            signInWithEmailAndPassword(auth, signInEmail, signInPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                alert("You have signed in successfully!");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode + errorMessage)
+            })
+        }
+
+        const checkAuthState = async() => {
+            onAuthStateChanged(auth, user => {
+                if(user) {
+                    authForm.style.display = 'none';
+                    secretContent.style.display = 'block';
+                }
+                else {
+                    authForm.style.display = 'block';
+                    secretContent.style.display = 'none';
+                }
+            })
+        }
+
+        const userSignOut = async() => {
+            await signOut(auth);
+        }
+
+        checkAuthState();
+
+        signUpButton.addEventListener('click', userSignUp);
+        signInButton.addEventListener('click', userSignIn);
+        signOutButton.addEventListener('click', userSignOut);
+
 
 	</script>
     
