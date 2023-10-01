@@ -80,7 +80,7 @@
             
             get(child(dbref, idOne))
             .then((snapshot)=>{
-                userOneImg = snapshot.val().image;
+                userOneImg.src = snapshot.val().image;
                 findNameOne.innerHTML = "Name: " + snapshot.val().name;
                 findNumOne.innerHTML = "Favorite Number: " + snapshot.val().number;
                 findSpiritOne.innerHTML = "Favorite Spirit Animal: " + snapshot.val().spirit;
@@ -88,7 +88,7 @@
             
             get(child(dbref, idTwo))
             .then((snapshot)=>{
-                userTwoImg = snapshot.val().image;
+                userTwoImg.src = snapshot.val().image;
                 findNameTwo.innerHTML = "Name: " + snapshot.val().name;
                 findNumTwo.innerHTML = "Favorite Number: " + snapshot.val().number;
                 findSpiritTwo.innerHTML = "Favorite Spirit Animal: " + snapshot.val().spirit;
